@@ -10,6 +10,7 @@ class RegisterView extends GetView<RegisterController> {
   const RegisterView({super.key});
   @override
   Widget build(BuildContext context) {
+    RegisterController controller = Get.put(RegisterController());
     return Scaffold(
       backgroundColor: HexColor('#feeee8'),
       body: SingleChildScrollView(
@@ -25,7 +26,7 @@ class RegisterView extends GetView<RegisterController> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
-                controller: controller.emailController,
+                controller: controller.nameController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Full Name',
