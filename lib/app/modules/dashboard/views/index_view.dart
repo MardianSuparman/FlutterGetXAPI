@@ -58,7 +58,7 @@ class IndexView extends GetView {
                 return ZoomTapAnimation(
                   onTap: () {
                     // Navigasi ke EventDetailView saat item ditekan
-                    Get.to(() => EventDetailView(), id: 1);
+                    Get.to(() => const EventDetailView(), id: 1);
                   },
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment
@@ -83,9 +83,9 @@ class IndexView extends GetView {
                       ),
                       const SizedBox(height: 16), // Jarak antara elemen
                       // Menampilkan judul event
-                      Text(
+                      const Text(
                         'title',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 24,
                           fontWeight:
                               FontWeight.bold, // Membuat teks menjadi tebal
@@ -93,27 +93,27 @@ class IndexView extends GetView {
                       ),
                       const SizedBox(height: 8), // Jarak antara elemen
                       // Menampilkan deskripsi event
-                      Text(
+                      const Text(
                         'description',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 16,
                           color: Colors.grey, // Warna teks abu-abu
                         ),
                       ),
                       const SizedBox(height: 16), // Jarak antara elemen
-                      Row(
+                      const Row(
                         children: [
                           // Ikon lokasi
-                          const Icon(
+                          Icon(
                             Icons.location_on,
                             color: Colors.red, // Warna ikon merah
                           ),
-                          const SizedBox(
+                          SizedBox(
                               width: 8), // Jarak antara ikon dan teks
                           Expanded(
                             child: Text(
                               'location', // Lokasi event
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.black, // Warna teks hitam
                               ),
@@ -122,10 +122,10 @@ class IndexView extends GetView {
                         ],
                       ),
                       // Garis pembatas antara item
-                      Divider(
+                      const Divider(
                         height: 10, // Tinggi divider
                       ),
-                      SizedBox(height: 16), // Jarak setelah divider
+                      const SizedBox(height: 16), // Jarak setelah divider
                     ],
                   ),
                 );

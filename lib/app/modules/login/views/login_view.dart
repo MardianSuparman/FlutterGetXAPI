@@ -74,7 +74,7 @@ class LoginView extends GetView<LoginController> {
               ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
@@ -85,7 +85,7 @@ class LoginView extends GetView<LoginController> {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: TextButton(onPressed:() {
-                Get.to(()=> RegisterView());
+                Get.to(()=> const RegisterView());
               },
               child: const Text(
                 'Register',

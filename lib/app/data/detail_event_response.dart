@@ -1,27 +1,4 @@
-class EventResponse {
-  List<Events>? events;
-
-  EventResponse({this.events});
-
-  EventResponse.fromJson(Map<String, dynamic> json) {
-    if (json['events'] != null) {
-      events = <Events>[];
-      json['events'].forEach((v) {
-        events!.add(Events.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (events != null) {
-      data['events'] = events!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
-
-class Events {
+class DetailEventResponse {
   int? id;
   String? name;
   String? description;
@@ -32,7 +9,7 @@ class Events {
   String? updatedAt;
   String? dibuatOleh;
 
-  Events(
+  DetailEventResponse(
       {this.id,
       this.name,
       this.description,
@@ -43,7 +20,7 @@ class Events {
       this.updatedAt,
       this.dibuatOleh});
 
-  Events.fromJson(Map<String, dynamic> json) {
+  DetailEventResponse.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     description = json['description'];
