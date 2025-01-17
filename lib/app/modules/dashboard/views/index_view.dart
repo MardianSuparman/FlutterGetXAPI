@@ -83,8 +83,8 @@ class IndexView extends GetView {
                       ),
                       const SizedBox(height: 16), // Jarak antara elemen
                       // Menampilkan judul event
-                      const Text(
-                        'title',
+                       Text(
+                        snapshot.data!.events![index].name.toString(),
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight:
@@ -93,15 +93,15 @@ class IndexView extends GetView {
                       ),
                       const SizedBox(height: 8), // Jarak antara elemen
                       // Menampilkan deskripsi event
-                      const Text(
-                        'description',
+                       Text(
+                        snapshot.data!.events![index].description.toString(),
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.grey, // Warna teks abu-abu
                         ),
                       ),
                       const SizedBox(height: 16), // Jarak antara elemen
-                      const Row(
+                       Row(
                         children: [
                           // Ikon lokasi
                           Icon(
@@ -112,7 +112,7 @@ class IndexView extends GetView {
                               width: 8), // Jarak antara ikon dan teks
                           Expanded(
                             child: Text(
-                              'location', // Lokasi event
+                              snapshot.data!.events![index].location.toString(), // Lokasi event
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.black, // Warna teks hitam

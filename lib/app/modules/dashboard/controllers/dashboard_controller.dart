@@ -16,8 +16,17 @@ class DashboardController extends GetxController {
   final selectedIndex = 0.obs;
   final _getConnect = GetConnect();
 
-
   final token = GetStorage().read('token');
+
+  void changeIndex(int index) {
+    selectedIndex.value = index;
+  }
+
+  final List<Widget> pages = [
+    const IndexView(),
+    const YourEventView(),
+    const ProfileView(),
+  ];
 
   Future<EventResponse> getEvent() async {
     final response = await _getConnect.get(
@@ -41,8 +50,8 @@ class DashboardController extends GetxController {
 
   // controller untuk buat name, deskripsi, tanggal event, dan lokasi
   TextEditingController nameController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();// Agar mudah mengatur tanggal
-  TextEditingController eventDateController = TextEditingController();// Masukan Alamat atau Tempatnya
+  TextEditingController descriptionController = TextEditingController(); // Agar mudah mengatur tanggal
+  TextEditingController eventDateController = TextEditingController(); // Masukan Alamat atau Tempatnya
   TextEditingController locationController = TextEditingController();
 
   void addEvent() async {
@@ -153,10 +162,11 @@ class DashboardController extends GetxController {
   }
 
   // DELETE EVENT
+  // Fungsi buat hapus event, tinggal kasih ID-nya
   void deleteEvent({required int id}) async {
-    // kirim request POSt ke server, padahal buat Delete
+    // Kirim request POST ke server, tapi sebenarnya buat DELETE
     final response = await _getConnect.post(
-      '${BaseUrl.deleteEvents}$id', // URL endpoint ditambah ID event
+      '${BaseUrl.deleteEvents}/$id', // URL endpoint ditambah ID event
       {
         '_method': 'delete', // Hack biar request diubah jadi DELETE
       },
@@ -166,8 +176,8 @@ class DashboardController extends GetxController {
       contentType: "application/json", // Data dikirim dalam format JSON
     );
 
-    // cek respon server
-    if (response.status == 200) {
+    // Cek respons server, kalau sukses ya good vibes
+    if (response.statusCode == 200) {
       // Notifikasi sukses hapus event
       Get.snackbar(
         'Success', // Judul snack bar
@@ -176,6 +186,7 @@ class DashboardController extends GetxController {
         backgroundColor: Colors.green, // Latar hijau biar lega
         colorText: Colors.white, // Teks putih biar baca enak
       );
+
       // Update UI dan reload data event biar up-to-date
       update(); // Kasih tahu UI kalau ada yang berubah
       getEvent(); // Refresh semua event
@@ -192,20 +203,21 @@ class DashboardController extends GetxController {
     }
   }
 
-  void changeIndex(int index) {
-    selectedIndex.value = index;
-  }
-
-  final List<Widget> pages = [
-    const IndexView(),
-    const YourEventView(),
-    const ProfileView(),
-  ];
-
   @override
   void onInit() {
     getEvent();
     getYourEvent();
     super.onInit();
   }
+
+  @override
+  void onReady() {
+    super.onReady();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+  }
 }
+
