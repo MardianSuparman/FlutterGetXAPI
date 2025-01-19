@@ -115,8 +115,8 @@ class YourEventView extends GetView {
                         ),
                       ],
                     ),
-                    const Divider(height: 10), // Membuat garis pemisah antar event
-                    const SizedBox(height: 16),
+                    Divider(height: 10), // Membuat garis pemisah antar event
+                    // const SizedBox(height: 16),
                     Row(
                       mainAxisAlignment:
                           MainAxisAlignment.end, // Posisi ujung kanan

@@ -58,7 +58,9 @@ class IndexView extends GetView {
                 return ZoomTapAnimation(
                   onTap: () {
                     // Navigasi ke EventDetailView saat item ditekan
-                    Get.to(() => const EventDetailView(), id: 1);
+                    Get.to(() => EventDetailView(
+                          eventId: snapshot.data!.events![index].id!),
+                    );
                   },
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment
@@ -85,7 +87,7 @@ class IndexView extends GetView {
                       // Menampilkan judul event
                        Text(
                         snapshot.data!.events![index].name.toString(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 24,
                           fontWeight:
                               FontWeight.bold, // Membuat teks menjadi tebal
@@ -95,7 +97,7 @@ class IndexView extends GetView {
                       // Menampilkan deskripsi event
                        Text(
                         snapshot.data!.events![index].description.toString(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           color: Colors.grey, // Warna teks abu-abu
                         ),
@@ -104,16 +106,16 @@ class IndexView extends GetView {
                        Row(
                         children: [
                           // Ikon lokasi
-                          Icon(
+                          const Icon(
                             Icons.location_on,
                             color: Colors.red, // Warna ikon merah
                           ),
-                          SizedBox(
+                          const SizedBox(
                               width: 8), // Jarak antara ikon dan teks
                           Expanded(
                             child: Text(
                               snapshot.data!.events![index].location.toString(), // Lokasi event
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 16,
                                 color: Colors.black, // Warna teks hitam
                               ),

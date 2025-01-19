@@ -11,7 +11,6 @@ import 'package:myapp/app/modules/dashboard/views/your_event_view.dart';
 import 'package:myapp/app/utils/api.dart';
 
 class DashboardController extends GetxController {
-  //TODO: Implement DashboardController
 
   final selectedIndex = 0.obs;
   final _getConnect = GetConnect();
@@ -23,11 +22,12 @@ class DashboardController extends GetxController {
   }
 
   final List<Widget> pages = [
-    const IndexView(),
-    const YourEventView(),
-    const ProfileView(),
+    IndexView(),
+    YourEventView(),
+    ProfileView(),
   ];
 
+  // GET EVENTS
   Future<EventResponse> getEvent() async {
     final response = await _getConnect.get(
       BaseUrl.events,
@@ -37,6 +37,7 @@ class DashboardController extends GetxController {
     return EventResponse.fromJson(response.body);
   }
 
+  // GET YOUR EVENTS
   var yourEvents = <Events>[].obs;
   Future<void> getYourEvent() async {
     final response = await _getConnect.get(
@@ -50,10 +51,14 @@ class DashboardController extends GetxController {
 
   // controller untuk buat name, deskripsi, tanggal event, dan lokasi
   TextEditingController nameController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController(); // Agar mudah mengatur tanggal
-  TextEditingController eventDateController = TextEditingController(); // Masukan Alamat atau Tempatnya
+  TextEditingController descriptionController =
+      TextEditingController(); // Agar mudah mengatur tanggal
+  TextEditingController eventDateController =
+      TextEditingController(); // Masukan Alamat atau Tempatnya
   TextEditingController locationController = TextEditingController();
 
+
+  // ADD EVENT
   void addEvent() async {
     // Kirim data ke server Pake -getConnect.poct
     final response = await _getConnect.post(
@@ -102,53 +107,59 @@ class DashboardController extends GetxController {
   }
 
   // DETAIL EVENT
+  // Fungsi buat ngambil detail event, tinggal panggil dan kasih ID event-nya
   Future<DetailEventResponse> getDetailEvent({required int id}) async {
+    // Kirim request GET ke server buat ambil detail event
     final response = await _getConnect.get(
-      '${BaseUrl.detailEvents}/id',
-      headers: {'Authorization': 'Bearer $token'},
-      contentType: 'application/json',
+      '${BaseUrl.detailEvents}/$id', // URL detail event, ID-nya ditempel di sini
+      headers: {
+        'Authorization': "Bearer $token"
+      }, // Header buat autentikasi, token kudu ada
+      contentType: "application/json", // Format data JSON biar proper
     );
+    // Balikin data yang udah di-parse ke model DetailEventResponse
     return DetailEventResponse.fromJson(response.body);
   }
 
   // EDIT EVENT
   // Fungsi buat edit data event, tinggal panggil terus kasih ID-nya
   void editEvent({required int id}) async {
+    // Kirim request POST ke server, tapi dengan method PUT buat update data
     final response = await _getConnect.post(
-      '${BaseUrl.events}/id', // URl endpoint ditambah Id event
+      '${BaseUrl.events}/$id', // URL endpoint ditambah ID event
       {
-        'name': nameController.text,
-        'description': descriptionController.text,
-        'event_date': eventDateController.text,
-        'loaction': locationController.text,
+        'name': nameController.text, // Nama event dari input
+        'description': descriptionController.text, // Deskripsi event dari input
+        'event_date': eventDateController.text, // Tanggal event dari input
+        'location': locationController.text, // Lokasi event dari input
         '_method': 'PUT', // Hack buat ganti method jadi PUT
       },
-      headers: {'Authorization': 'Bearer $token'},
-      contentType: 'application/json',
+      headers: {'Authorization': "Bearer $token"}, // Header buat autentikasi
+      contentType: "application/json", // Format data JSON
     );
 
-    // cek respon dari server
+    // Cek respons dari server
     if (response.statusCode == 200) {
-      // tanda bila berhasil
+      // Kalau berhasil, kasih notifikasi sukses
       Get.snackbar(
-        'Succes',
-        'Event Update',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.green,
-        colorText: Colors.white,
+        'Success', // Judul snack bar
+        'Event Updated', // Pesan sukses
+        snackPosition: SnackPosition.BOTTOM, // Posisi snack bar di bawah
+        backgroundColor: Colors.green, // Warna latar hijau (success vibes)
+        colorText: Colors.white, // Warna teks putih biar kontras
       );
 
-      // Clear semua input
+      // Clear semua input biar bersih
       nameController.clear();
       descriptionController.clear();
       eventDateController.clear();
       locationController.clear();
 
-      // Update UI dan relod data event
+      // Update UI dan reload data event
       update();
-      getEvent();
-      getYourEvent();
-      Get.close(1);
+      getEvent(); // Panggil ulang data semua event
+      getYourEvent(); // Panggil ulang data event user
+      Get.close(1); // Tutup halaman edit
     } else {
       // Kalau gagal, kasih notifikasi gagal
       Get.snackbar(
@@ -219,5 +230,5 @@ class DashboardController extends GetxController {
   void onClose() {
     super.onClose();
   }
-}
 
+}

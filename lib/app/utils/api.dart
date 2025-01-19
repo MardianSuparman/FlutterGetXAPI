@@ -1,6 +1,5 @@
 class BaseUrl {
-  static String login =
-      'https://praujikom.smkassalaambandung.sch.id/api/login';
+  static String login = 'https://praujikom.smkassalaambandung.sch.id/api/login';
   static String register =
       'https://praujikom.smkassalaambandung.sch.id/api/register';
   static String logout =
@@ -15,4 +14,8 @@ class BaseUrl {
       'https://praujikom.smkassalaambandung.sch.id/api/events';
   static String deleteEvents =
       'https://praujikom.smkassalaambandung.sch.id/api/events';
+
+  //PROFILE
+  static String profile =
+      'https://praujikom.smkassalaambandung.sch.id/api/profile';
 }
